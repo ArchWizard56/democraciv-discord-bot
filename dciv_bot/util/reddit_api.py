@@ -41,3 +41,22 @@ class RedditAPIWrapper:
         except Exception as e:
             print(f"[BOT] ERROR - Error while posting to Reddit: {e}")
             return False
+
+    async def get_latest_modqueue(self):
+        "Gets the 5 latest messages in the modqueue"
+
+        headers = {"Authorization": f"bearer {self.bearer_token}",
+                   "User-Agent": f"democraciv-discord-bot {config.BOT_VERSION} by DerJonas - u/Jovanos"}
+
+        try:
+
+            async with self.bot.session.get(f"https://www.reddit.com/r/{config.REDDIT_SUBREDDIT}/about/modqueue.json?limit=5", headers=headers) as response:
+                if response.status == 200:
+                    return await response.json()
+
+            return None 
+
+        except Exception as e:
+            print(f"[BOT] ERROR - Error while getting modqueue: {e}")
+            return None
+
