@@ -602,7 +602,7 @@ class Misc(commands.Cog, name="Miscellaneous"):
 
             # Roll the dice
             return (dice_pattern.roll(), dice_pattern.format_string)
-        except (SyntaxError, TypeError, ValueError):
+        except (SyntaxError, TypeError, ValueError, ZeroDivisionError):
             return None
 
     @commands.command(name='roll')
